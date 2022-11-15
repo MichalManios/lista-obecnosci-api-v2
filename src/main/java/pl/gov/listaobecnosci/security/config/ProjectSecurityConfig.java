@@ -32,14 +32,18 @@ public class ProjectSecurityConfig {
                     config.setExposedHeaders(List.of("Authorization"));
                     config.setMaxAge(3600L);
                     return config;
-                }).and().csrf().ignoringRequestMatchers(new AntPathRequestMatcher("/")).csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                }).and().csrf().ignoringRequestMatchers(new AntPathRequestMatcher("/"))
+                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 .and()
                 .authorizeHttpRequests()
-                .requestMatchers(new AntPathRequestMatcher("/api/freedays")).hasAnyRole("AUTHORIZED_USER","ADMINISTRATOR")
-                .requestMatchers(new AntPathRequestMatcher("/api/sections")).hasAnyRole("AUTHORIZED_USER","ADMINISTRATOR")
+                .requestMatchers(new AntPathRequestMatcher("/api/freedays"))
+                .hasAnyRole("AUTHORIZED_USER", "ADMINISTRATOR")
+                .requestMatchers(new AntPathRequestMatcher("/api/sections"))
+                .hasAnyRole("AUTHORIZED_USER", "ADMINISTRATOR")
                 .requestMatchers(new AntPathRequestMatcher("/api/roles")).hasRole("ADMINISTRATOR")
                 .requestMatchers(new AntPathRequestMatcher("/api/users")).hasRole("ADMINISTRATOR")
-                .requestMatchers(new AntPathRequestMatcher("/api/workers")).hasAnyRole("AUTHORIZED_USER","ADMINISTRATOR")
+                .requestMatchers(new AntPathRequestMatcher("/api/workers"))
+                .hasAnyRole("AUTHORIZED_USER", "ADMINISTRATOR")
                 .requestMatchers(new AntPathRequestMatcher("/")).permitAll()
                 .and().oauth2ResourceServer().jwt().jwtAuthenticationConverter(jwtAuthenticationConverter);
         return http.build();
