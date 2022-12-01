@@ -1,4 +1,4 @@
-package pl.gov.listaobecnosci.functions;
+package pl.gov.listaobecnosci.functions.model;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import pl.gov.listaobecnosci.common.util.DescribableEnum;

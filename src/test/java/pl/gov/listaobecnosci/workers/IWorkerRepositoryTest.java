@@ -6,7 +6,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import pl.gov.listaobecnosci.functions.Function;
+import pl.gov.listaobecnosci.functions.model.Function;
 import pl.gov.listaobecnosci.sections.entity.Section;
 import pl.gov.listaobecnosci.workers.entity.Worker;
 

@@ -3,7 +3,7 @@ package pl.gov.listaobecnosci.workers;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
-import pl.gov.listaobecnosci.functions.Function;
+import pl.gov.listaobecnosci.functions.model.Function;
 import pl.gov.listaobecnosci.workers.dto.WorkerDTO;
 import pl.gov.listaobecnosci.workers.dto.WorkerFlattened;
 import pl.gov.listaobecnosci.workers.entity.Worker;

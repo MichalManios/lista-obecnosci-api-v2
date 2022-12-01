@@ -12,5 +12,5 @@ interface IWorkerService {
 
     Worker updateWorker(Worker worker);
 
-    Worker deleteWorker(Worker worker);
+    Worker deleteWorker(Long workerId);
 }

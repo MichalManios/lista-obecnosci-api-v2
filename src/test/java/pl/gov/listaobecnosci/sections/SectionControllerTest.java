@@ -9,7 +9,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import pl.gov.listaobecnosci.functions.Function;
+import pl.gov.listaobecnosci.functions.model.Function;
 import pl.gov.listaobecnosci.sections.dto.SectionDTO;
 import pl.gov.listaobecnosci.sections.dto.SectionWithWorkersDTO;
 import pl.gov.listaobecnosci.sections.entity.Section;

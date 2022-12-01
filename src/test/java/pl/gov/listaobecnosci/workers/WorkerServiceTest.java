@@ -6,7 +6,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pl.gov.listaobecnosci.common.exception.IncorrectDataException;
-import pl.gov.listaobecnosci.functions.Function;
+import pl.gov.listaobecnosci.functions.model.Function;
 import pl.gov.listaobecnosci.sections.entity.Section;
 import pl.gov.listaobecnosci.workers.entity.Worker;
 

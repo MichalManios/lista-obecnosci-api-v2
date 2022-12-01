@@ -2,7 +2,7 @@ package pl.gov.listaobecnosci.workers;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pl.gov.listaobecnosci.functions.Function;
+import pl.gov.listaobecnosci.functions.model.Function;
 import pl.gov.listaobecnosci.sections.entity.Section;
 import pl.gov.listaobecnosci.workers.dto.WorkerDTO;
 import pl.gov.listaobecnosci.workers.dto.WorkerFlattened;

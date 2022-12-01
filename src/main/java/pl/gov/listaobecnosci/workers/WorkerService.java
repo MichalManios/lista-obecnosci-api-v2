@@ -32,7 +32,8 @@ class WorkerService implements IWorkerService {
         return repository.save(workerToUpdate);
     }
 
-    public Worker deleteWorker(Worker worker) {
+    public Worker deleteWorker(Long workerId) {
+        var worker = getWorkerById(workerId);
         repository.delete(worker);
         return worker;
     }

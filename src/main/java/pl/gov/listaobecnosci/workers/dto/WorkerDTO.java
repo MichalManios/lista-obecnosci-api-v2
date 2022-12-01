@@ -1,7 +1,7 @@
 package pl.gov.listaobecnosci.workers.dto;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import pl.gov.listaobecnosci.functions.Function;
+import pl.gov.listaobecnosci.functions.model.Function;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

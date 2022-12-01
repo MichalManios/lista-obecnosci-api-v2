@@ -36,24 +36,23 @@ public class WorkerController {
 
     @PostMapping
     @PreAuthorize("hasAnyRole('AUTHORIZED_USER', 'ADMINISTRATOR')")
-    public ResponseEntity<WorkerDTO> addWorker(@RequestBody WorkerDTO workerDTO) {
+    public ResponseEntity<WorkerFlattened> addWorker(@RequestBody WorkerDTO workerDTO) {
         var newWorker = mapper.mapToWorker(workerDTO);
-        var newWorkerDTO = mapper.mapToWorkerDTO(service.addNewWorker(newWorker));
-        return new ResponseEntity<>(newWorkerDTO, HttpStatus.CREATED);
+        var newWorkerFlattened = mapper.mapToWorkerFlattened(service.addNewWorker(newWorker));
+        return new ResponseEntity<>(newWorkerFlattened, HttpStatus.CREATED);
     }
 
     @PutMapping
     @PreAuthorize("hasAnyRole('AUTHORIZED_USER', 'ADMINISTRATOR')")
-    public ResponseEntity<WorkerFlattened> updateWorker(@RequestBody WorkerFlattened workerFlattened) {
-        var workerToUpdate = mapper.mapToWorkerFromWorkerFlattened(workerFlattened);
+    public ResponseEntity<WorkerFlattened> updateWorker(@RequestBody WorkerDTO workerDTO) {
+        var workerToUpdate = mapper.mapToWorker(workerDTO);
         var updatedWorkerFlattened = mapper.mapToWorkerFlattened(service.updateWorker(workerToUpdate));
         return new ResponseEntity<>(updatedWorkerFlattened, HttpStatus.OK);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{workerId}")
     @PreAuthorize("hasAnyRole('AUTHORIZED_USER', 'ADMINISTRATOR')")
-    public ResponseEntity<WorkerFlattened> deleteWorker(@RequestBody WorkerFlattened workerFlattened) {
-        service.deleteWorker(mapper.mapToWorkerFromWorkerFlattened(workerFlattened));
-        return new ResponseEntity<>(workerFlattened, HttpStatus.OK);
+    public ResponseEntity<WorkerFlattened> deleteWorker(@PathVariable Long workerId) {
+        return new ResponseEntity<>(mapper.mapToWorkerFlattened(service.deleteWorker(workerId)), HttpStatus.OK);
     }
 }

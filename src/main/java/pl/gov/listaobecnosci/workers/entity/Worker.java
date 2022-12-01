@@ -9,8 +9,9 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Length;
 import pl.gov.listaobecnosci.common.baseentity.BaseEntity;
-import pl.gov.listaobecnosci.functions.Function;
+import pl.gov.listaobecnosci.functions.model.Function;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -28,9 +29,11 @@ import pl.gov.listaobecnosci.sections.entity.Section;
 public class Worker extends BaseEntity {
 
     @NotNull
+    @Length(max = 25, min = 3)
     private String name;
 
     @NotNull
+    @Length(max = 50, min = 3)
     private String surname;
 
     @NotNull
