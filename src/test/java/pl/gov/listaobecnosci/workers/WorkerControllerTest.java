@@ -112,13 +112,13 @@ class WorkerControllerTest {
     void addWorker() throws Exception {
         when(mapper.mapToWorker(workerDTOFirst)).thenReturn(workerFirst);
         when(service.addNewWorker(workerFirst)).thenReturn(workerFirst);
-        when(mapper.mapToWorkerDTO(workerFirst)).thenReturn(workerDTOFirst);
+        when(mapper.mapToWorkerFlattened(workerFirst)).thenReturn(workerFlattened);
 
         mockMvc.perform(post("/api/workers")
                         .contentType(APPLICATION_JSON_UTF8)
                         .content(toJsonString(workerDTOFirst)))
                 .andExpect(status().isCreated())
-                .andExpect(content().json(toJsonString(workerDTOFirst)));
+                .andExpect(content().json(toJsonString(workerFlattened)));
 
         verify(service).addNewWorker(workerFirst);
     }
@@ -133,6 +133,14 @@ class WorkerControllerTest {
                 .function(Function.OFFICER)
                 .build();
 
+        var workerToUpdateDTO = WorkerDTO.builder()
+                .id(2L)
+                .name("Mariusz")
+                .surname("Kaleta")
+                .section(sectionFirst)
+                .function(Function.OFFICER)
+                .build();
+
         var workerToUpdatedFlattened = WorkerFlattened.builder()
                 .id(2L)
                 .name("Mariusz")
@@ -140,13 +148,13 @@ class WorkerControllerTest {
                 .function("Funkcjonariusz")
                 .build();
 
-        when(mapper.mapToWorkerFromWorkerFlattened(workerToUpdatedFlattened)).thenReturn(workerToUpdate);
+        when(mapper.mapToWorker(workerToUpdateDTO)).thenReturn(workerToUpdate);
         when(service.updateWorker(workerToUpdate)).thenReturn(workerToUpdate);
         when(mapper.mapToWorkerFlattened(workerToUpdate)).thenReturn(workerToUpdatedFlattened);
 
         mockMvc.perform(put("/api/workers")
                         .contentType(APPLICATION_JSON_UTF8)
-                        .content(toJsonString(workerToUpdatedFlattened)))
+                        .content(toJsonString(workerToUpdateDTO)))
                 .andExpect(status().isOk())
                 .andExpect(content().json(toJsonString(workerToUpdatedFlattened)));
 
@@ -155,15 +163,13 @@ class WorkerControllerTest {
 
     @Test
     void deleteWorker() throws Exception {
-        when(mapper.mapToWorkerFromWorkerFlattened(workerFlattened)).thenReturn(workerFirst);
-        when(service.deleteWorker(workerFirst)).thenReturn(workerFirst);
+        when(service.deleteWorker(workerFirst.getId())).thenReturn(workerFirst);
+        when(mapper.mapToWorkerFlattened(workerFirst)).thenReturn(workerFlattened);
 
-        mockMvc.perform(delete("/api/workers")
-                        .contentType(APPLICATION_JSON_UTF8)
-                        .content(toJsonString(workerFlattened)))
+        mockMvc.perform(delete("/api/workers/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(toJsonString(workerFlattened)));
 
-        verify(service).deleteWorker(workerFirst);
+        verify(service).deleteWorker(workerFirst.getId());
     }
 }

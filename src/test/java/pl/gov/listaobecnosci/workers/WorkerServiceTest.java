@@ -15,6 +15,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.mock;
@@ -96,9 +97,11 @@ class WorkerServiceTest {
     void deleteWorker() {
         var worker = mock(Worker.class);
 
-        service.deleteWorker(worker);
+        when(repository.findById(isA(Long.class))).thenReturn(Optional.of(worker));
+
+        service.deleteWorker(isA(Long.class));
 
         verify(repository, times(1)).delete(worker);
-        assertThat(service.deleteWorker(worker)).usingRecursiveComparison().isEqualTo(worker);
+        assertThat(service.deleteWorker(isA(Long.class))).usingRecursiveComparison().isEqualTo(worker);
     }
 }
