@@ -14,5 +14,5 @@ interface ISectionService {
 
     Section updateSection(Section section);
 
-    Section deleteSection(Section section);
+    Section deleteSection(Long sectionId);
 }

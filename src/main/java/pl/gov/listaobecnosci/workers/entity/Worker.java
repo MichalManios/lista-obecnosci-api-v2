@@ -39,9 +39,11 @@ public class Worker extends BaseEntity {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "section_id")
+    @ToString.Exclude
     private Section section;
 
     @NotNull
     @Enumerated(EnumType.STRING)
+    @Length(max = 15)
     private Function function;
 }

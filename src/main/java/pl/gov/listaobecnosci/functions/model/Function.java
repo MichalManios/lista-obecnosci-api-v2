@@ -15,11 +15,11 @@ import java.util.Map;
 public enum Function implements DescribableEnum {
 
     DIRECTOR (0, "Dyrektor"),
-    DEPUTY_DIRECTOR (1, "Zastępca dyrektora"),
+    DEPUTY_DIRECTOR (1, "Dyrektor - zastępca"),
     MANAGER (2, "Kierownik"),
-    DEPUTY_MANAGER (3,"Zastępca kierownika"),
-    OFFICER (4, "Funkcjonariusz"),
-    WORKER (5, "Pracownik");
+    DEPUTY_MANAGER (3,"Kierownik - zastępca"),
+    OFFICER (4, "SW - funkcjonariusz"),
+    WORKER (5, "SW - pracownik");
 
     private final int id;
 

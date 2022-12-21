@@ -33,7 +33,8 @@ class SectionService implements ISectionService{
         return repository.save(sectionToUpdate);
     }
 
-    public Section deleteSection(Section section) {
+    public Section deleteSection(Long sectionId) {
+        var section = getSectionById(sectionId);
         repository.delete(section);
         return section;
     }

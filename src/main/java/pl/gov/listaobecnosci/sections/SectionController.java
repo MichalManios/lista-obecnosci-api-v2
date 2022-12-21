@@ -57,10 +57,9 @@ public class SectionController {
         return new ResponseEntity<>(updatedSectionDTO, HttpStatus.OK);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{sectionId}")
     @PreAuthorize("hasAnyRole('AUTHORIZED_USER', 'ADMINISTRATOR')")
-    public ResponseEntity<SectionDTO> deleteSection(@RequestBody SectionDTO sectionDTO) {
-        service.deleteSection(mapper.mapToSection(sectionDTO));
-        return new ResponseEntity<>(sectionDTO, HttpStatus.OK);
+    public ResponseEntity<SectionDTO> deleteSection(@PathVariable Long sectionId) {
+        return new ResponseEntity<>(mapper.mapToSectionDTO(service.deleteSection(sectionId)), HttpStatus.OK);
     }
 }

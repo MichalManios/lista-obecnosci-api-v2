@@ -1,5 +1,6 @@
 package pl.gov.listaobecnosci.sections.entity;
 
+import org.hibernate.validator.constraints.Length;
 import pl.gov.listaobecnosci.common.baseentity.BaseEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
 import java.util.List;
 
 @Table(name = "sections", uniqueConstraints = { @UniqueConstraint(columnNames = { "name" })})
@@ -28,8 +28,10 @@ import java.util.List;
 public class Section extends BaseEntity {
 
     @NotNull
+    @Length(max = 50, min = 3)
     private String name;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "section", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
     private List<Worker> workers;
 }
