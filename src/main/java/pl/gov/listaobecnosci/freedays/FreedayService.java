@@ -5,12 +5,10 @@ import pl.gov.listaobecnosci.freedays.entity.Freeday;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
 class FreedayService implements IFreedayService {
 
     private final IFreedayRepository repository;

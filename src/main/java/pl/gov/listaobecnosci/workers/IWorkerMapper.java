@@ -16,6 +16,7 @@ public interface IWorkerMapper {
     IWorkerMapper INSTANCE = Mappers.getMapper(IWorkerMapper.class);
 
     @Mapping(target = "function", source = "function.description")
+    @Mapping(target = "section", source = "section.name")
     WorkerFlattened mapToWorkerFlattened(Worker worker);
 
     List<WorkerFlattened> mapToWorkersFlattened(List<Worker> workers);

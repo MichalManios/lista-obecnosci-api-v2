@@ -25,4 +25,7 @@ public class WorkerFlattened {
 
     @NotNull
     private String function;
+
+    @NotNull
+    private String section;
 }

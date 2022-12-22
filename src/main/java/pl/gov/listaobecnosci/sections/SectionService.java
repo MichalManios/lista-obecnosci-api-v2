@@ -3,14 +3,12 @@ package pl.gov.listaobecnosci.sections;
 import pl.gov.listaobecnosci.common.exception.IncorrectDataException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import pl.gov.listaobecnosci.sections.entity.Section;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
 class SectionService implements ISectionService{
 
     private final ISectionRepository repository;

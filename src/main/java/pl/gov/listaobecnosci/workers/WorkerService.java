@@ -3,14 +3,12 @@ package pl.gov.listaobecnosci.workers;
 import pl.gov.listaobecnosci.common.exception.IncorrectDataException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import pl.gov.listaobecnosci.workers.entity.Worker;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
 class WorkerService implements IWorkerService {
 
     private final IWorkerRepository repository;

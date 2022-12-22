@@ -2,7 +2,6 @@ package pl.gov.listaobecnosci.security.users;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import pl.gov.listaobecnosci.common.exception.IncorrectDataException;
 import pl.gov.listaobecnosci.security.users.entity.User;
 
@@ -10,7 +9,6 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
 class UserService implements IUserService {
 
     private final IUserRepository repository;

@@ -44,6 +44,5 @@ public class Worker extends BaseEntity {
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    @Length(max = 15)
     private Function function;
 }
