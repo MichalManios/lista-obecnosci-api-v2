@@ -73,17 +73,17 @@ class IFreedayMapperTest {
     }
 
     @Test
-    void mapToFreeday() {
+    void shouldMapToFreeday() {
         assertThat(mapper.mapToFreeday(freedayDTOFirst)).usingRecursiveComparison().isEqualTo(freedayFirst);
     }
 
     @Test
-    void mapToFreedayDTO() {
+    void shouldMapToFreedayDTO() {
         assertThat(mapper.mapToFreedayDTO(freedayFirst)).usingRecursiveComparison().isEqualTo(freedayDTOFirst);
     }
 
     @Test
-    void mapToFreedayDTOs() {
+    void shouldMapToFreedayDTOs() {
         assertThat(mapper.mapToFreedayDTOs(listFreeday)).usingRecursiveComparison().isEqualTo(listFreedayDTO);
     }
 }

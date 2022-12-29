@@ -39,12 +39,12 @@ class ISectionRepositoryTest {
     }
 
     @Test
-    void findByName() {
+    void shouldFindSectionByName() {
         assertThat(repository.findByName("Finanse")).usingRecursiveComparison().isEqualTo(sectionFirst);
     }
 
     @Test
-    void findByNameShouldReturnNull() {
+    void shouldReturnNullWhenSearchedForSectionByName() {
         assertThat(repository.findByName("Kadry")).usingRecursiveComparison().isEqualTo(null);
     }
 }

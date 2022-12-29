@@ -1,8 +1,8 @@
 package pl.gov.listaobecnosci.sections;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pl.gov.listaobecnosci.common.exception.IncorrectDataException;
@@ -22,18 +22,14 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class SectionServiceTest {
 
+    @InjectMocks
     private SectionService service;
 
     @Mock
     ISectionRepository repository;
 
-    @BeforeEach
-    void setUp() {
-        service = new SectionService(repository);
-    }
-
     @Test
-    void getAllSections() {
+    void shouldReturnListOfAllSections() {
         var sectionFirst = mock(Section.class);
         var sectionSecond = mock(Section.class);
         var sectionThird = mock(Section.class);
@@ -46,7 +42,7 @@ class SectionServiceTest {
     }
 
     @Test
-    void getSectionByName() {
+    void shouldReturnSectionSearchedByName() {
         var section = mock(Section.class);
 
         when(repository.findByName("Kadry")).thenReturn(section);
@@ -55,7 +51,7 @@ class SectionServiceTest {
     }
 
     @Test
-    void addNewSection() {
+    void shouldAddNewSection() {
         var section = mock(Section.class);
 
         when(repository.save(section)).thenReturn(section);
@@ -64,7 +60,7 @@ class SectionServiceTest {
     }
 
     @Test
-    void updateSection() {
+    void ShouldUpdateSection() {
         var sectionToUpdate = Section.builder()
                 .id(1L)
                 .name("Kadry")
@@ -84,7 +80,7 @@ class SectionServiceTest {
     }
 
     @Test
-    void updateSectionShouldThrowException() {
+    void shouldThrowExceptionWhenTryUpdateSectionWhichDoesNotExist() {
         var sectionToUpdate = Section.builder()
                 .id(1L)
                 .name("Kadry")
@@ -99,12 +95,14 @@ class SectionServiceTest {
     }
 
     @Test
-    void deleteSection() {
+    void shouldDeleteSection() {
         var section = mock(Section.class);
 
-        service.deleteSection(section);
+        when(repository.findById(1L)).thenReturn(Optional.of(section));
+
+        service.deleteSection(1L);
 
         verify(repository, times(1)).delete(section);
-        assertThat(service.deleteSection(section)).usingRecursiveComparison().isEqualTo(section);
+        assertThat(service.deleteSection(1L)).usingRecursiveComparison().isEqualTo(section);
     }
 }

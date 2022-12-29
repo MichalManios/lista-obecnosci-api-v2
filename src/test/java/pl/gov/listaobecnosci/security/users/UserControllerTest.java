@@ -4,6 +4,7 @@ import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.web.servlet.MockMvc;
@@ -35,6 +36,9 @@ class UserControllerTest {
     @Mock
     private IUserMapper mapper;
 
+    @InjectMocks
+    private UserController controller;
+
     private MockMvc mockMvc;
 
     private User userFirst;
@@ -51,8 +55,6 @@ class UserControllerTest {
 
     @BeforeEach
     void setUp() {
-        UserController controller = new UserController(service, mapper);
-
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
 
         userFirst = User.builder()
@@ -117,7 +119,7 @@ class UserControllerTest {
     }
 
     @Test
-    void getAllUsers() throws Exception {
+    void shouldReturnListOfAllUsers() throws Exception {
         when(service.getAllUsers()).thenReturn(listUsers);
         when(mapper.mapToUserDTOs(listUsers)).thenReturn(listUsersDTO);
 
@@ -131,7 +133,7 @@ class UserControllerTest {
     }
 
     @Test
-    void addUser() throws Exception {
+    void shouldAddNewUser() throws Exception {
         when(mapper.mapToUser(userDTOFirst)).thenReturn(userFirst);
         when(service.addNewUser(userFirst)).thenReturn(userFirst);
         when(mapper.mapToUserDTO(userFirst)).thenReturn(userDTOFirst);
@@ -146,7 +148,7 @@ class UserControllerTest {
     }
 
     @Test
-    void updateUser() throws Exception {
+    void shouldUpdateUser() throws Exception {
         var userToUpdate = User.builder()
                 .id(2L)
                 .name("Mariusz")
@@ -175,7 +177,7 @@ class UserControllerTest {
     }
 
     @Test
-    void deleteUser() throws Exception {
+    void shouldDeleteUser() throws Exception {
         when(mapper.mapToUser(userDTOFirst)).thenReturn(userFirst);
         when(service.deleteUser(userFirst)).thenReturn(userFirst);
 

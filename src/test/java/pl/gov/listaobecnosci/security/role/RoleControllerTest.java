@@ -4,6 +4,7 @@ import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.web.servlet.MockMvc;
@@ -36,6 +37,9 @@ class RoleControllerTest {
     @Mock
     private IRoleMapper mapper;
 
+    @InjectMocks
+    private RoleController controller;
+
     private MockMvc mockMvc;
 
     private Role roleFirst;
@@ -50,8 +54,6 @@ class RoleControllerTest {
 
     @BeforeEach
     void setUp() {
-        RoleController controller = new RoleController(service, mapper);
-
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
 
         userFirst = User.builder()
@@ -107,7 +109,7 @@ class RoleControllerTest {
     }
 
     @Test
-    void getAllRoles() throws Exception {
+    void shouldReturnListOfAllRoles() throws Exception {
         when(service.getAllRoles()).thenReturn(listRole);
         when(mapper.mapToRoleDTOs(listRole)).thenReturn(listRoleDTO);
 
@@ -121,7 +123,7 @@ class RoleControllerTest {
     }
 
     @Test
-    void getRoleByUser() throws Exception {
+    void shouldReturnRoleSearchedByUser() throws Exception {
         when(service.getRoleByUser(userFirst)).thenReturn(roleFirst);
         when(mapper.mapToRoleDTO(roleFirst)).thenReturn(roleDTOFirst);
 
@@ -135,7 +137,7 @@ class RoleControllerTest {
     }
 
     @Test
-    void addRole() throws Exception {
+    void ShouldAddNewRole() throws Exception {
         when(mapper.mapToRole(roleDTOFirst)).thenReturn(roleFirst);
         when(service.addNewRole(roleFirst)).thenReturn(roleFirst);
         when(mapper.mapToRoleDTO(roleFirst)).thenReturn(roleDTOFirst);
@@ -150,7 +152,7 @@ class RoleControllerTest {
     }
 
     @Test
-    void updateRole() throws Exception {
+    void shouldUpdateRole() throws Exception {
         var user = mock(User.class);
 
         var roleToUpdate = Role.builder()
@@ -180,7 +182,7 @@ class RoleControllerTest {
     }
 
     @Test
-    void deleteRole() throws Exception {
+    void shouldDeleteRole() throws Exception {
         when(mapper.mapToRole(roleDTOFirst)).thenReturn(roleFirst);
         when(service.deleteRole(roleFirst)).thenReturn(roleFirst);
 

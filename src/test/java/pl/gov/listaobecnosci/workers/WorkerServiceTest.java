@@ -1,8 +1,8 @@
 package pl.gov.listaobecnosci.workers;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pl.gov.listaobecnosci.common.exception.IncorrectDataException;
@@ -24,18 +24,14 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class WorkerServiceTest {
 
+    @InjectMocks
     private WorkerService service;
 
     @Mock
     IWorkerRepository repository;
 
-    @BeforeEach
-    void setUp() {
-        service = new WorkerService(repository);
-    }
-
     @Test
-    void getAllWorkersBySectionName() {
+    void shouldReturnListOfAllWorkersSearchedBySectionName() {
         var workerFirst = mock(Worker.class);
         var workerSecond = mock(Worker.class);
         var workerThird = mock(Worker.class);
@@ -48,7 +44,7 @@ class WorkerServiceTest {
     }
 
     @Test
-    void addNewWorker() {
+    void shouldAddNewWorker() {
         var worker = mock(Worker.class);
 
         when(repository.save(worker)).thenReturn(worker);
@@ -57,7 +53,7 @@ class WorkerServiceTest {
     }
 
     @Test
-    void updateWorker() {
+    void shouldUpdateWorker() {
         var section = mock(Section.class);
 
         var workerToUpdate = Worker.builder()
@@ -83,7 +79,7 @@ class WorkerServiceTest {
     }
 
     @Test
-    void updateWorkerShouldThrowException() {
+    void shouldThrowExceptionWhenTryUpdateWorkerWhichDoesNotExist() {
         var workerToUpdate = mock(Worker.class);
 
         when(repository.findById(workerToUpdate.getId())).thenReturn(Optional.empty());
@@ -94,7 +90,7 @@ class WorkerServiceTest {
     }
 
     @Test
-    void deleteWorker() {
+    void shouldDeleteWorker() {
         var worker = mock(Worker.class);
 
         when(repository.findById(isA(Long.class))).thenReturn(Optional.of(worker));

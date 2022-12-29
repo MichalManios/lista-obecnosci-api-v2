@@ -1,8 +1,8 @@
 package pl.gov.listaobecnosci.freedays;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pl.gov.listaobecnosci.common.exception.IncorrectDataException;
@@ -23,18 +23,14 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class FreedayServiceTest {
 
-    private FreedayService service;
-
     @Mock
     IFreedayRepository repository;
 
-    @BeforeEach
-    void setUp() {
-        service = new FreedayService(repository);
-    }
+    @InjectMocks
+    private FreedayService service;
 
     @Test
-    void getAllFreedays() {
+    void shouldReturnListOfAllFreedays() {
         var freedayFirst = mock(Freeday.class);
         var freedaySecond = mock(Freeday.class);
         var freedayThird = mock(Freeday.class);
@@ -47,7 +43,7 @@ class FreedayServiceTest {
     }
 
     @Test
-    void addNewFreeday() {
+    void shouldAddNewFreeday() {
         var freeday = mock(Freeday.class);
 
         when(repository.save(freeday)).thenReturn(freeday);
@@ -56,7 +52,7 @@ class FreedayServiceTest {
     }
 
     @Test
-    void updateFreeday() {
+    void shouldUpdateFreeday() {
         var freedayToUpdate = Freeday.builder()
                 .id(1L)
                 .day(1)
@@ -78,7 +74,7 @@ class FreedayServiceTest {
     }
 
     @Test
-    void onUpdateFreedayThrowExceptionIfFreedayDoesNotExist() {
+    void shouldThrowExceptionWhenTryUpdateFreedayThatDoesNotExist() {
         var freedayToUpdate = Freeday.builder()
                 .id(99L)
                 .day(1)
@@ -94,7 +90,7 @@ class FreedayServiceTest {
     }
 
     @Test
-    void deleteFreeday() {
+    void shouldDeleteFreeday() {
         var freeday = mock(Freeday.class);
 
         service.deleteFreeday(freeday);

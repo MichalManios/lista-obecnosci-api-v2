@@ -5,6 +5,7 @@ import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.web.servlet.MockMvc;
@@ -39,6 +40,9 @@ class SectionControllerTest {
     @Mock
     private ISectionMapper mapper;
 
+    @InjectMocks
+    private SectionController controller;
+
     private MockMvc mockMvc;
 
     private Worker workerFirst;
@@ -59,8 +63,6 @@ class SectionControllerTest {
 
     @BeforeEach
     void setUp() {
-        SectionController controller = new SectionController(service, mapper);
-
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
 
         workerFirst = Worker.builder()
@@ -122,7 +124,7 @@ class SectionControllerTest {
     }
 
     @Test
-    void getAllSections() throws Exception {
+    void shouldReturnListOfAllSections() throws Exception {
         when(service.getAllSections()).thenReturn(List.of(sectionFirst, sectionSecond, sectionThird));
         when(mapper.mapToSectionDTOs(List.of(sectionFirst, sectionSecond, sectionThird)))
                 .thenReturn(List.of(sectionDTOFirst, sectionDTOSecond, sectionDTOThird));
@@ -135,7 +137,7 @@ class SectionControllerTest {
     }
 
     @Test
-    void getSectionByName() throws Exception {
+    void shouldReturnSectionSearchedByName() throws Exception {
         var sectionWithWorkers = SectionWithWorkersDTO.builder()
                 .id(1L)
                 .name("Kadry")
@@ -152,7 +154,7 @@ class SectionControllerTest {
     }
 
     @Test
-    void addSection() throws Exception {
+    void shouldAddSection() throws Exception {
         when(mapper.mapToSection(sectionDTOFirst)).thenReturn(sectionFirst);
         when(service.addNewSection(sectionFirst)).thenReturn(sectionFirst);
         when(mapper.mapToSectionDTO(sectionFirst)).thenReturn(sectionDTOFirst);
@@ -167,7 +169,7 @@ class SectionControllerTest {
     }
 
     @Test
-    void updateSection() throws Exception {
+    void shouldUpdateSection() throws Exception {
         var sectionToUpdate = Section.builder()
                 .id(2L)
                 .name("Kierownictwo")
@@ -193,16 +195,14 @@ class SectionControllerTest {
     }
 
     @Test
-    void deleteSection() throws Exception {
-        when(mapper.mapToSection(sectionDTOFirst)).thenReturn(sectionFirst);
-        when(service.deleteSection(sectionFirst)).thenReturn(sectionFirst);
+    void shouldDeleteSection() throws Exception {
+        when(service.deleteSection(sectionFirst.getId())).thenReturn(sectionFirst);
+        when(mapper.mapToSectionDTO(sectionFirst)).thenReturn(sectionDTOFirst);
 
-        mockMvc.perform(delete("/api/sections")
-                        .contentType(APPLICATION_JSON_UTF8)
-                        .content(toJsonString(sectionDTOFirst)))
+        mockMvc.perform(delete("/api/sections/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(toJsonString(sectionDTOFirst)));
 
-        verify(service).deleteSection(sectionFirst);
+        verify(service).deleteSection(sectionFirst.getId());
     }
 }

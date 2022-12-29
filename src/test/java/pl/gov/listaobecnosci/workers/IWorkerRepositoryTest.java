@@ -48,12 +48,12 @@ class IWorkerRepositoryTest {
     }
 
     @Test
-    void findAllBySectionName() {
+    void shouldReturnListOfAllWorkersSearchedBySectionName() {
         assertThat(repository.findAllBySectionName("Finanse")).usingRecursiveComparison().isEqualTo(List.of(worker));
     }
 
     @Test
-    void findAllBySectionNameShouldReturnEmptyList() {
+    void shouldReturnEmptyListOfWorkersSearchedBySectionName() {
         assertThat(repository.findAllBySectionName("Kadry"))
                 .usingRecursiveComparison()
                 .isEqualTo(Collections.EMPTY_LIST);

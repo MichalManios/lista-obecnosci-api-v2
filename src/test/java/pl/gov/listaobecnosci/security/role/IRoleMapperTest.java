@@ -75,17 +75,17 @@ class IRoleMapperTest {
     }
 
     @Test
-    void mapToRole() {
+    void shouldMapToRole() {
         assertThat(mapper.mapToRole(roleDTOFirst)).usingRecursiveComparison().isEqualTo(roleFirst);
     }
 
     @Test
-    void mapToRoleDTO() {
+    void shouldMapToRoleDTO() {
         assertThat(mapper.mapToRoleDTO(roleFirst)).usingRecursiveComparison().isEqualTo(roleDTOFirst);
     }
 
     @Test
-    void mapToRoleDTOs() {
+    void shouldMapToRoleDTOs() {
         assertThat(mapper.mapToRoleDTOs(listRole)).usingRecursiveComparison().isEqualTo(listRoleDTO);
     }
 }

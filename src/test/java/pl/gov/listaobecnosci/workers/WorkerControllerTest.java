@@ -4,6 +4,7 @@ import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.web.servlet.MockMvc;
@@ -37,6 +38,9 @@ class WorkerControllerTest {
     @Mock
     private IWorkerMapper mapper;
 
+    @InjectMocks
+    private WorkerController controller;
+
     private MockMvc mockMvc;
 
     private Worker workerFirst;
@@ -53,8 +57,6 @@ class WorkerControllerTest {
 
     @BeforeEach
     void setUp() {
-        WorkerController controller = new WorkerController(service, mapper);
-
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
 
         sectionFirst = Section.builder().name("Kadry").build();
@@ -79,7 +81,7 @@ class WorkerControllerTest {
                 .id(2L)
                 .name("Mariusz")
                 .surname("Kaleta")
-                .function("Pracownik")
+                .function("SW - pracownik")
                 .build();
 
         workerDTOFirst = WorkerDTO.builder()
@@ -96,7 +98,7 @@ class WorkerControllerTest {
     }
 
     @Test
-    void getAllWorkersBySectionName() throws Exception {
+    void shouldReturnListOfAllWorkersSearchedBySectionName() throws Exception {
         when(service.getAllWorkersBySectionName(sectionFirst.getName())).thenReturn(listWorkers);
         when(mapper.mapToWorkersFlattened(listWorkers)).thenReturn(listWorkersFlattened);
 
@@ -105,11 +107,12 @@ class WorkerControllerTest {
                 .andExpect(jsonPath("$[*].id").value(Matchers.containsInAnyOrder(2)))
                 .andExpect(jsonPath("$[*].name").value(Matchers.containsInAnyOrder("Mariusz")))
                 .andExpect(jsonPath("$[*].surname").value(Matchers.containsInAnyOrder("Kaleta")))
-                .andExpect(jsonPath("$[*].function").value(Matchers.containsInAnyOrder("Pracownik")));
+                .andExpect(jsonPath("$[*].function")
+                        .value(Matchers.containsInAnyOrder("SW - pracownik")));
     }
 
     @Test
-    void addWorker() throws Exception {
+    void shouldAddNewWorker() throws Exception {
         when(mapper.mapToWorker(workerDTOFirst)).thenReturn(workerFirst);
         when(service.addNewWorker(workerFirst)).thenReturn(workerFirst);
         when(mapper.mapToWorkerFlattened(workerFirst)).thenReturn(workerFlattened);
@@ -124,7 +127,7 @@ class WorkerControllerTest {
     }
 
     @Test
-    void updateWorker() throws Exception {
+    void shouldUpdateWorker() throws Exception {
         var workerToUpdate = Worker.builder()
                 .id(2L)
                 .name("Mariusz")
@@ -145,7 +148,7 @@ class WorkerControllerTest {
                 .id(2L)
                 .name("Mariusz")
                 .surname("Kaleta")
-                .function("Funkcjonariusz")
+                .function("SW - funkcjonariusz")
                 .build();
 
         when(mapper.mapToWorker(workerToUpdateDTO)).thenReturn(workerToUpdate);
@@ -162,7 +165,7 @@ class WorkerControllerTest {
     }
 
     @Test
-    void deleteWorker() throws Exception {
+    void shouldDeleteWorker() throws Exception {
         when(service.deleteWorker(workerFirst.getId())).thenReturn(workerFirst);
         when(mapper.mapToWorkerFlattened(workerFirst)).thenReturn(workerFlattened);
 

@@ -1,8 +1,8 @@
 package pl.gov.listaobecnosci.security.role;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pl.gov.listaobecnosci.common.exception.IncorrectDataException;
@@ -22,18 +22,14 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class RoleServiceTest {
 
+    @InjectMocks
     private RoleService service;
 
     @Mock
     IRoleRepository repository;
 
-    @BeforeEach
-    void setUp() {
-        service = new RoleService(repository);
-    }
-
     @Test
-    void getAllRoles() {
+    void shouldReturnListOfAllRoles() {
         var roleFirst = mock(Role.class);
         var roleSecond = mock(Role.class);
         var roleThird = mock(Role.class);
@@ -46,7 +42,7 @@ class RoleServiceTest {
     }
 
     @Test
-    void getRoleByUser() {
+    void shouldReturnRoleSearchedByUser() {
         var user = mock(User.class);
         var role = mock(Role.class);
 
@@ -56,7 +52,7 @@ class RoleServiceTest {
     }
 
     @Test
-    void addNewRole() {
+    void shouldAddNewRole() {
         var roleToAdd = mock(Role.class);
         var role = mock(Role.class);
 
@@ -66,7 +62,7 @@ class RoleServiceTest {
     }
 
     @Test
-    void updateRole() {
+    void shouldUpdateRole() {
         var roleToUpdate = Role.builder()
                 .id(1L)
                 .name("ADMINISTRATOR")
@@ -88,7 +84,7 @@ class RoleServiceTest {
     }
 
     @Test
-    void updateRoleShouldThrowException() {
+    void shouldThrowExceptionWhenTryUpdateRoleWhichDoesNotExist() {
         var roleToUpdate = mock(Role.class);
 
         when(repository.findById(roleToUpdate.getId())).thenReturn(Optional.empty());
@@ -99,7 +95,7 @@ class RoleServiceTest {
     }
 
     @Test
-    void deleteRole() {
+    void shouldDeleteRole() {
         var role = mock(Role.class);
 
         service.deleteRole(role);

@@ -48,12 +48,12 @@ class IRoleRepositoryTest {
     }
 
     @Test
-    void findRoleByUser() {
+    void shouldReturnRoleSearchedByUser() {
         assertThat(repository.findRoleByUser(user)).usingRecursiveComparison().isEqualTo(roleFirst);
     }
 
     @Test
-    void findRoleByUserShouldReturnNull() {
+    void shouldReturnNullWhenSearchedForRoleByUser() {
         var user = mock(User.class);
 
         assertThat(repository.findRoleByUser(user)).usingRecursiveComparison().isEqualTo(null);

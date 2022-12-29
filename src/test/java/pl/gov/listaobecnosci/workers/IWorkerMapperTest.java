@@ -71,21 +71,21 @@ class IWorkerMapperTest {
                 .id(1L)
                 .name("Michał")
                 .surname("Mikołajczyk")
-                .function("Pracownik")
+                .function("SW - pracownik")
                 .build();
 
         var workerSecondFlattened = WorkerFlattened.builder()
                 .id(2L)
                 .name("Mariusz")
                 .surname("Kaleta")
-                .function("Pracownik")
+                .function("SW - pracownik")
                 .build();
 
         var workerthirdFlattened = WorkerFlattened.builder()
                 .id(3L)
                 .name("Adam")
                 .surname("Zieliński")
-                .function("Funkcjonariusz")
+                .function("SW - funkcjonariusz")
                 .build();
 
         listWorkers = List.of(workerFirst, workerSecond, workerThird);
@@ -94,31 +94,31 @@ class IWorkerMapperTest {
     }
 
     @Test
-    void mapToWorkerFlattened() {
+    void shouldMapToWorkerFlattened() {
         assertThat(mapper.mapToWorkerFlattened(workerFirst)).usingRecursiveComparison().isEqualTo(workerFirstFlattened);
     }
 
     @Test
-    void mapToWorkersFlattened() {
+    void shouldMapToWorkersFlattened() {
         assertThat(mapper.mapToWorkersFlattened(listWorkers))
                 .usingRecursiveComparison()
                 .isEqualTo(listWorkersFlattened);
     }
 
     @Test
-    void mapToWorker() {
+    void shouldMapToWorker() {
         assertThat(mapper.mapToWorker(workerFirstDTO)).usingRecursiveComparison().isEqualTo(workerFirst);
     }
 
     @Test
-    void mapToWorkerFromWorkerFlattened() {
+    void shouldMapToWorkerFromWorkerFlattened() {
         assertThat(mapper.mapToWorkerFromWorkerFlattened(workerFirstFlattened))
                 .usingRecursiveComparison()
                 .isEqualTo(workerFirst);
     }
 
     @Test
-    void mapToWorkerDTO() {
+    void shouldMapToWorkerDTO() {
         assertThat(mapper.mapToWorkerDTO(workerFirst)).usingRecursiveComparison().isEqualTo(workerFirst);
     }
 }

@@ -79,17 +79,17 @@ class IUserMapperTest {
     }
 
     @Test
-    void mapToUser() {
+    void shouldMapToUser() {
         assertThat(mapper.mapToUser(userDTOFirst)).usingRecursiveComparison().isEqualTo(userFirst);
     }
 
     @Test
-    void mapToUserDTO() {
+    void shouldMapToUserDTO() {
         assertThat(mapper.mapToUserDTO(userFirst)).usingRecursiveComparison().isEqualTo(userDTOFirst);
     }
 
     @Test
-    void mapToUserDTOs() {
+    void shouldMapToUserDTOs() {
         assertThat(mapper.mapToUserDTOs(listUsers)).usingRecursiveComparison().isEqualTo(listUsersDTO);
     }
 }

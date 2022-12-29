@@ -5,6 +5,6 @@ import org.junit.jupiter.api.Test;
 class FunctionControllerTest {
 
     @Test
-    void getAllFunctions() {
+    void shouldReturnListOfAllFunctions() {
     }
 }

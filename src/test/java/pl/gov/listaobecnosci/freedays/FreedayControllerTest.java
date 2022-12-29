@@ -4,6 +4,7 @@ import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.web.servlet.MockMvc;
@@ -34,6 +35,9 @@ class FreedayControllerTest {
     @Mock
     private IFreedayMapper mapper;
 
+    @InjectMocks
+    private FreedayController controller;
+
     private MockMvc mockMvc;
 
     private Freeday freedayFirst;
@@ -50,8 +54,6 @@ class FreedayControllerTest {
 
     @BeforeEach
     void setUp() {
-        FreedayController controller = new FreedayController(service, mapper);
-
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
 
         freedayFirst = Freeday.builder()
@@ -98,7 +100,7 @@ class FreedayControllerTest {
     }
 
     @Test
-    void getAllFreedays() throws Exception {
+    void shouldReturnListOfAllFreedays() throws Exception {
         when(service.getAllFreedays()).thenReturn(List.of(freedayFirst, freedaySecond, freedayThird));
         when(mapper.mapToFreedayDTOs(List.of(freedayFirst, freedaySecond, freedayThird)))
                 .thenReturn(List.of(freedayDTOFirst, freedayDTOSecond, freedayDTOThird));
@@ -113,7 +115,7 @@ class FreedayControllerTest {
     }
 
     @Test
-    void addFreeday() throws Exception {
+    void shouldAddNewFreeday() throws Exception {
         when(mapper.mapToFreeday(freedayDTOFirst)).thenReturn(freedayFirst);
         when(service.addNewFreeday(freedayFirst)).thenReturn(freedayFirst);
         when(mapper.mapToFreedayDTO(freedayFirst)).thenReturn(freedayDTOFirst);
@@ -128,7 +130,7 @@ class FreedayControllerTest {
     }
 
     @Test
-    void updateFreeday() throws Exception {
+    void shouldUpdateFreeday() throws Exception {
         var freedayToUpdate = Freeday.builder()
                 .id(3L)
                 .day(26)
@@ -157,7 +159,7 @@ class FreedayControllerTest {
     }
 
     @Test
-    void deleteFreeday() throws Exception {
+    void shouldDeleteFreeday() throws Exception {
         when(mapper.mapToFreeday(freedayDTOFirst)).thenReturn(freedayFirst);
         when(service.deleteFreeday(freedayFirst)).thenReturn(freedayFirst);
 

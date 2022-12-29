@@ -79,22 +79,22 @@ class ISectionMapperTest {
     }
 
     @Test
-    void mapToSection() {
+    void shouldMapToSection() {
         assertThat(mapper.mapToSection(sectionDTOFirst)).usingRecursiveComparison().isEqualTo(sectionFirst);
     }
 
     @Test
-    void mapToSectionDTO() {
+    void shouldMapToSectionDTO() {
         assertThat(mapper.mapToSectionDTO(sectionFirst)).usingRecursiveComparison().isEqualTo(sectionDTOFirst);
     }
 
     @Test
-    void mapToSectionDTOs() {
+    void shouldMapToSectionDTOs() {
         assertThat(mapper.mapToSectionDTOs(listSection)).usingRecursiveComparison().isEqualTo(listSectionDTO);
     }
 
     @Test
-    void mapToSectionWithWorkersDTO() {
+    void shouldMapToSectionWithWorkersDTO() {
         assertThat(mapper.mapToSectionWithWorkersDTO(sectionSecond))
                 .usingRecursiveComparison()
                 .isEqualTo(sectionWithWorkersDTO);
